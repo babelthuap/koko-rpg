@@ -25,17 +25,17 @@ const Tile = {
 };
 const map = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 2, 2, 0, 1],
+  [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+  [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 2, 2, 0, 1],
   [1, 0, 0, 1, 1, 0, 0, 2, 2, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1],
+  [1, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 1, 1, 0, 2, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 1],
-  [1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 1],
+  [1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 1, 0, 0, 0, 1],
   [1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 1, 1, 0, 0, 0, 1],
   [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1],
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -140,32 +140,30 @@ function render() {
 setup();
 render();
 
-const keyBindings = {
-  w: () => {
-    if (map[player.position.y - 1][player.position.x] === Tile.GRASS) {
-      player.position.y--;
-    }
-  },
-  a: () => {
-    if (map[player.position.y][player.position.x - 1] === Tile.GRASS) {
-      player.position.x--;
-    }
-  },
-  s: () => {
-    if (map[player.position.y + 1][player.position.x] === Tile.GRASS) {
-      player.position.y++;
-    }
-  },
-  d: () => {
-    if (map[player.position.y][player.position.x + 1] === Tile.GRASS) {
-      player.position.x++;
-    }
-  },
-};
 window.addEventListener('keydown', ({key}) => {
   console.log(key);
-  if (key in keyBindings) {
-    keyBindings[key]();
+
+  const newPos = {y: player.position.y, x: player.position.x};
+  switch (key) {
+    case 'w':
+    case 'ArrowUp':
+      newPos.y--;
+      break;
+    case 'a':
+    case 'ArrowLeft':
+      newPos.x--;
+      break;
+    case 's':
+    case 'ArrowDown':
+      newPos.y++;
+      break;
+    case 'd':
+    case 'ArrowRight':
+      newPos.x++;
+      break;
+  }
+  if (map[newPos.y] && map[newPos.y][newPos.x] === Tile.GRASS) {
+    player.position = newPos;
     render();
   }
 });
