@@ -41,21 +41,6 @@ const map = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
 
-// Randomize map
-// for (let y = 0; y < 9; y++) {
-//   const row = tiles[y];
-//   for (let x = 0; x < 15; x++) {
-//     const tile = row[x];
-//     if (y !== 4 && x !== 7) {
-//       if (Math.random() > 0.9) {
-//         tile.style.backgroundImage = 'url(/art/tree.png)';
-//       } else if (Math.random() > 0.9) {
-//         tile.style.backgroundImage = 'url(/art/fuling.png)';
-//       }
-//     }
-//   }
-// }
-
 const player = {
   name: 'Koko',
   position: {x: 7, y: 4},
@@ -126,7 +111,7 @@ const COLOR = {
 const IMAGE = {
   [Tile.GRASS]: '',
   [Tile.WATER]: '',
-  [Tile.TREE]: 'url(/art/tree.png)',
+  [Tile.TREE]: 'url(./art/tree.png)',
 };
 function render() {
   const {x, y} = player.position;
@@ -149,7 +134,7 @@ function render() {
     }
   }
 
-  tiles[4][7].style.backgroundImage = 'url(/art/berserk.gif)';
+  tiles[4][7].style.backgroundImage = 'url(./art/berserk.gif)';
 }
 
 setup();
