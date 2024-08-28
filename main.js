@@ -104,9 +104,9 @@ function prettyPrint(obj, indent = '') {
 }
 
 const COLOR = {
-  [Tile.GRASS]: 'green',
-  [Tile.WATER]: 'blue',
-  [Tile.TREE]: 'green',
+  [Tile.GRASS]: 'darkgreen',
+  [Tile.WATER]: 'darkblue',
+  [Tile.TREE]: 'darkgreen',
 };
 const IMAGE = {
   [Tile.GRASS]: '',
@@ -121,12 +121,12 @@ function render() {
       const tile = tiles[4 + dy][7 + dx];
       const mapRow = map[y + dy];
       if (mapRow === undefined) {
-        tile.style.backgroundColor = 'blue';
+        tile.style.backgroundColor = COLOR[Tile.WATER];
         continue;
       }
       const tileContent = mapRow[x + dx];
       if (tileContent === undefined) {
-        tile.style.backgroundColor = 'blue';
+        tile.style.backgroundColor = COLOR[Tile.WATER];
         continue;
       }
       tile.style.backgroundColor = COLOR[tileContent];
